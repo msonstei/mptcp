@@ -7,7 +7,7 @@
 # developed as part of MP-TCP research
 # Developed using Python3
 #################
-# Specifically, this module performs data pre-processing
+# Specifically, this module performs data post-transport processing
 
 
 import os
