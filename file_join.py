@@ -1,18 +1,20 @@
 #!/usr/bin/python
 #################
 # Author: Mark D. Sonstein
-# Date May 5, 2021
+# Date June 26, 2021
 #################
 # Application to read a split file and combine it
 # developed as part of MP-TCP research
 # Developed using Python3
 #################
-# Specifically, this module performs data post-transport processing
+# Specifically, this module performs data pre-processing
 
 
 import os
 import math
 import logging
+import numpy as np
+from datetime import datetime
 
 logging.basicConfig(filename='mptcp.log',level=os.environ.get("LOGLEVEL", "INFO"))
 logging.basicConfig(format='%(asctime)s %(message)s')
@@ -30,43 +32,50 @@ class file_join:
         self.prejoin = prejoin
         self.cnt = cnt 
 
+    def Extract(lst):
+        return [item[0] for item in lst]     
+
+
     def joinRecords(prejoin,cnt):
         #ititialize required variables
-        results = []
+        results, results1, result = '', '', ''
         d = {}
-        x=0
+        x,y=0,0
         final = ""
-
+        inner_cnt, outer_cnt = 0,0
         # Produce containers for the data equal to the number of connections
         # since there are nth possible connections this is built dynamically 
-        print('Building {0} buckets'.format(cnt))
-        while x < cnt:
-            # Make a blank array bucket
-            d['data{0}'.format(x)] = []
-            x+=1
-        x = 0
-        print(prejoin)
-        # Add files to containers
-        while x < cnt:
-            d['data{0}'.format(x)] = prejoin[x]
-            x+=1
-        print(d['data0'])
-        #newcount = len(d['data0'])
-        # Split data provided by 'prejoin' equally
-        # into the buckets from previous statement
- #       print('Starting file split')
- #       while x < cnt:
- #           d['data{0}'.format(x)] = prejoin[x::cnt]
- #           x+=1
- #           final = str(len(d['data{0}'.format(0)]))
- #       print("Produced {0} buckets with {1} entries".format(cnt,final))
- #       logging.info("Produced {0} buckets with {1} entries".format(cnt,final))
- #       x=0
+        logging.info('Building {0} buckets'.format(cnt) + datetime.now().strftime("%d.%b %Y %H:%M:%S"))
 
-        #Append records into an array and 
-        # return results to calling function
-#        while x < cnt:
-#            #print(x,'\n',d['data{0}'.format(x)],'\n\n')
-#            results.append(d['data{0}'.format(x)])
-#            x=x+1
-#        return results
+        # Add files to containers
+        for item in prejoin:
+            result = item
+            
+        #print("Result: ", result[1])
+         
+        outer_cnt = len(result)
+        inner_cnt = len(result[0])
+
+        
+        while x < inner_cnt:
+            y=0
+            try:
+                while y < (outer_cnt):
+                    if x> inner_cnt:
+                        print('Y: ',y)
+                        logging.error("Count Exceeded"+ datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+                    final+=result[y][x]
+                    #final+=results1[x]
+                    y+=1
+            except Exception as e:
+                print(x,y)
+                logging.error(str(e) + datetime.now().strftime("%d.%b %Y %H:%M:%S"))
+                print('\n', str(e))
+                break
+            if x > 920:
+                print('X: ',x)
+            x+=1
+     
+        return final      
+        
+
