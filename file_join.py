@@ -50,7 +50,9 @@ class file_join:
         # Add files to containers
         for item in prejoin:
             result = item
-                   
+            
+        #print("Result: ", result[1])
+         
         outer_cnt = len(result)
         inner_cnt = len(result[0])
 
@@ -63,6 +65,7 @@ class file_join:
                         print('Y: ',y)
                         logging.error("Count Exceeded"+ datetime.now().strftime("%d.%b %Y %H:%M:%S"))
                     final+=result[y][x]
+                    #final+=results1[x]
                     y+=1
             except Exception as e:
                 print(x,y)

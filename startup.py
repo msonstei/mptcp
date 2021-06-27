@@ -36,13 +36,16 @@ def main():
     results = []
     #Establish default input filename
     filename = 't.txt' 
-    #Array to store values of inported and in-process data
+    #Array to store values of imported and in-process data
     file_array = []
+    file_array_input = []
     #Establish default connections count
     conn = 3 
     #Establish default output filename
     newfile = 'testout.ob'
-    
+    #Establish class instances
+    fs = file_split.file_split.splitRecords(file_array, conn)
+    fj = file_join.file_join(file_array, conn)
     #Log starting of application
     logging.info('Starting MP-TCP Application ' + datetime.now().strftime("%d.%b %Y %H:%M:%S"))
 
@@ -72,11 +75,13 @@ def main():
     
     #Call File_Split.py to break the inported data
     # into mulpile data streams 
-    results = file_split.file_split.splitRecords(file_array,conn)
+    results = fs.splitRecords(file_array,conn)
     print("Preparing to write file")
     #TODO Ask user if encryption should be used and add encryption method
 
-    
+    #Write the parsed data to a file
+    #This should be changed in the future to a network data stream
+    #using MP-TCP
     try:
         with open(newfile, "wb") as file:
             logging.info('Writing output to file '+ newfile + datetime.now().strftime("%d.%b %Y %H:%M:%S"))
@@ -86,14 +91,17 @@ def main():
         print(str(e))
         logging.error('Error: ' + str(e)+ datetime.now().strftime("%d.%b %Y %H:%M:%S"))
 
-    print('Write complete')
+    logging.info('Writing to file '+ newfile + ' complete ' + datetime.now().strftime("%d.%b %Y %H:%M:%S"))
     print("Starting readback")
-    file_array = []
+    #Read input from file containing parsed data
+    #This should be changed in the future to a network data stream
+    #using MP-TCP
+    
     try:
         with open(newfile,'rb') as file:
             while True:
                 try:
-                    file_array.append(pickle.load(file))
+                    file_array_input.append(pickle.load(file))
                 except EOFError:
                     break
             file.close()
@@ -102,7 +110,7 @@ def main():
         print(str(e))
         logging.error('Error: ' + str(e)+ datetime.now().strftime("%d.%b %Y %H:%M:%S"))
         
-    print(file_join.file_join.joinRecords(file_array,conn))
+    print(fj.joinRecords(file_array_input,conn))
     
 
 def __main__():
