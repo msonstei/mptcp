@@ -1,0 +1,99 @@
+
+//////////////////////////////////
+// Author: Mark D. Sonstein
+// Date February 1, 2022
+//////////////////////////////////
+// Application to testSPI transfer
+//using LED changes on distant end
+// developed as part of MP-TCP research
+//////////////////////////////////
+// Specifically, this module performs data transfer
+//between two NANOs over SPI
+//Code for the Arduino Nano receiver board
+//////////////////////////////////
+
+#include<Wire.h>
+#include <PololuLedStrip.h>
+
+//Initialize variables
+int x = 0;
+PololuLedStrip<8> ledStrip;
+#define LED_COUNT 8
+rgb_color colors[LED_COUNT];
+
+//Start wire and Serial for monitoring
+void setup() {
+  pinMode (13, OUTPUT);//Connect LED to pin 13
+  Wire.begin(9);//9 here is the address(Mentioned even in the master board code) 
+  Wire.onReceive(receiveEvent);
+  Serial.begin(9600);
+}
+
+//Read the incoming bits
+//Print the number read for validation
+//remove print after testing
+void receiveEvent(int bytes) {
+  x = Wire.read();//Receive value from master board
+  Serial.println(x);
+}
+
+
+void loop() {
+  if (x > 20) {//I took the threshold as 88,you can change it to whatever you want
+    light_on(255,255,255);
+    delay(200);
+  }
+  else{
+    light_off(50,100,10);
+    delay(400);
+  }
+}
+
+
+//Setup the LED display when value HIGH
+void light_on(int red, int green, int blue){
+        // Read the color from the computer.
+      rgb_color color;
+      color.red = red;
+      color.green = green;
+      color.blue = blue;
+
+      // Update the colors buffer.
+      for (uint16_t i = 0; i < LED_COUNT; i++) {
+        colors[i] = color;
+      }
+      
+      // Write to the LED strip.
+      ledStrip.write(colors, LED_COUNT);
+
+      Serial.print("Showing color: ");
+      Serial.print(color.red);
+      Serial.print(",");
+      Serial.print(color.green);
+      Serial.print(",");
+      Serial.println(color.blue);
+}
+
+//Setup the LED display when value LOW
+void light_off(int red, int green, int blue){
+        // Read the color from the computer.
+      rgb_color color;
+      color.red = red;
+      color.green = green;
+      color.blue = blue;
+
+      // Update the colors buffer.
+      for (uint16_t i = 0; i < LED_COUNT; i++) {
+        colors[i] = color;
+      }
+
+      // Write to the LED strip.
+      ledStrip.write(colors, LED_COUNT);
+
+      Serial.print("Showing color: ");
+      Serial.print(color.red);
+      Serial.print(",");
+      Serial.print(color.green);
+      Serial.print(",");
+      Serial.println(color.blue);
+}
