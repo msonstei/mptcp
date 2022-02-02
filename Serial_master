@@ -1,16 +1,29 @@
-
-
+//////////////////////////////////
+// Author: Mark D. Sonstein
+// Date February 1, 2022
+//////////////////////////////////
+// Application to testSPI transfer
+//using LED changes on distant end
+// developed as part of MP-TCP research
+//////////////////////////////////
+// Specifically, this module performs data transfer
+//between two NANOs over SPI
 //Code for the Arduino Nano Master board
-//This library is used for I2C communication
+//////////////////////////////////
 
 #include<Wire.h>
 int x = 83;
 
-
+//Setup starts wired connection 
+//and Serial output for monitoring
 void setup() {
   Wire.begin(); 
   Serial.begin(9600);
 }
+
+//Generate a rundom number to 
+//send to receiving end
+//number determines LED color
 void loop() {
   Serial.println(x%2);
   if(x%2){
@@ -18,7 +31,8 @@ void loop() {
   }
   else{x=x%2+random(2,199);
   }
-  
+  //Tranfer number across the wire
+  //Then wait 1 seond
   Wire.beginTransmission(9);//9 here is the address of the slave board 
   Wire.write(x);//Transfers the value of potentiometer to the slave board            
   Wire.endTransmission(); 
