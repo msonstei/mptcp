@@ -1,0 +1,27 @@
+
+
+//Code for the Arduino Nano Master board
+//This library is used for I2C communication
+
+#include<Wire.h>
+int x = 83;
+
+
+void setup() {
+  Wire.begin(); 
+  Serial.begin(9600);
+}
+void loop() {
+  Serial.println(x%2);
+  if(x%2){
+    x=x+1;
+  }
+  else{x=x%2+random(2,199);
+  }
+  
+  Wire.beginTransmission(9);//9 here is the address of the slave board 
+  Wire.write(x);//Transfers the value of potentiometer to the slave board            
+  Wire.endTransmission(); 
+  Serial.println(x);
+  delay(1000);
+}
