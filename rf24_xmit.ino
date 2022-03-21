@@ -7,6 +7,7 @@
 *
 *by Mark Sonstein
 *
+* Library: TMRh20/RF24, https://github.com/tmrh20/RF24/
 */
 //Include Libraries
 //#include <SPI.h>
