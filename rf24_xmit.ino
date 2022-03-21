@@ -1,3 +1,13 @@
+/*
+*Code used to accept Serial data
+* and transmit over RF24 radio
+*
+*Arduino Serial to RF
+*Radio segment of MP-TCP Project
+*
+*by Mark Sonstein
+*
+*/
 //Include Libraries
 //#include <SPI.h>
 #include <nRF24L01.h>
