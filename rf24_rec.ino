@@ -4,6 +4,7 @@
 #include <RF24_config.h>
 
 /*
+* Modified code from original author
 * Arduino Wireless Communication Tutorial
 * Example 1 - Receiver Code
 *
