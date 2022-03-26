@@ -15,6 +15,7 @@
 #Obscurity
 #Packet
 #Processing
+#################
 
 
 import os
@@ -31,13 +32,15 @@ from cryptography.fernet import Fernet
 import tkinter as tk
 from msilib.schema import RadioButton
 
+
+# Configure logging activities
 logging.basicConfig(filename='mptcp.log',level=os.environ.get("LOGLEVEL", "INFO"))
 logging.basicConfig(format='%(asctime)s %(message)s')
-#log = logging.getLogger(__name__)
+
 
 def main():
-    #Initialize variables
-        #Array to store values of parsed data
+    """Initialize variables
+    Array to store values of parsed data"""
     results = []
         #Establish default input filename
     filename = '2city12p.txt' 
@@ -77,8 +80,7 @@ def main():
     file_array = open_file(filename)
     
 
-    #Call File_Split.py to break the inported data
-    # into mulpile data streams 
+    #Call File_Split.py to break the inported data into mulpile data streams 
     results = fs.splitRecords(file_array,conn)
 
     # Capture ending time and calculate total time
@@ -176,12 +178,11 @@ def frame():
 
     #R3 = tk.Radiobutton(root, text = "Option 3", variable = var, value = 3)#,command = sel)
     #R3.pack() # anchor = W)
-     #label.config(text = "Do you require encry")
+    #label.config(text = "Do you require encry")
     #label = Label(root)
     #label.pack()
-    root.mainloop()
     #top.mainloop()
-
+    root.mainloop()
 
 def open_file(filename):
     file_array = []
@@ -237,8 +238,6 @@ def do_encrypt(filename):
 
     return
 
-
 def __main__():
     print('__main__')
-    timer()
     main()
