@@ -1,4 +1,5 @@
-# mptcp
+# Security Through Obscurity Packet Processing
+# MP-TCP
 
 Applications and work associated with PhD research. The purpose of this research is to leverage MP-TCP to obfuscate data allowing safe transport without encryption requirements. 
 
