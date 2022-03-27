@@ -28,5 +28,5 @@ Transmission of data over RF24 testing example. RPi recieves the data via intran
 # RF24 and Serial transfer
 Basic layout of the RPi3 to Arduino Nano to transmit TCP received on the RPi3 over serial to the Nano
 
-<img src="https://user-images.githubusercontent.com/17393233/images/159374336-6384f379-f9f4-4fc2-a64b-f222044065a0.png" alt="drawing" width="600"/>
+<img src="https://user-images.githubusercontent.com/17393233/159374336-6384f379-f9f4-4fc2-a64b-f222044065a0.png" alt="drawing" width="600"/>
 
