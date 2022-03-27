@@ -1,7 +1,8 @@
 #!/usr/bin/python
 #################
 # Author: Mark D. Sonstein
-# Date March 26, 2022
+# Date June 26, 2021
+# Updated March 27, 2022
 #################
 # Application to read file and split
 # developed as part of MP-TCP research
@@ -16,6 +17,8 @@ import logging
 from datetime import datetime
 import timeit
 import pickle
+
+
 
 logging.basicConfig(filename='mptcp.log',level=os.environ.get("LOGLEVEL", "INFO"))
 logging.basicConfig(format='%(asctime)s %(message)s')
