@@ -15,7 +15,7 @@ The overall project consists of several key peices.
     - FM transmitter
   - Receive data from multiple streams
   - Rebuild data into original order
-  - Rebuild the different fines into the original (Pre-split) format
+  - Rebuild the different files into the original (Pre-split) format
 
 src/startup.py initiates the processing.
 TODO: add GUI interface for ease of use.
